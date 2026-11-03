@@ -1,0 +1,23 @@
+name = "fit-tts"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Set these, then `wrangler deploy`
+#   wrangler secret put ELEVEN_API_KEY   (your ElevenLabs key)
+#   edit VOICE_ID below to the id printed by clone.mjs
+[vars]
+VOICE_ID = "REPLACE_ME"
+
+# Optional: KV namespace id for cross-session caching (saves ElevenLabs quota)
+# Create with: wrangler kv namespace create fittts_cache
+[[kv_namespaces]]
+binding = "TTS_CACHE"
+id = "REPLACE_ME_KV_ID"
+
+# After deploy, attach this Worker to the fit domain so /api/tts is same-origin:
+#   Cloudflare Dashboard → Workers → fit-tts → Triggers → Add route
+#   pattern: fit.955827.xyz/api/*
+# (or uncomment the block below and `wrangler deploy` again)
+# routes = [
+#   { pattern = "fit.955827.xyz/api/*", custom_domain = true }
+# ]
